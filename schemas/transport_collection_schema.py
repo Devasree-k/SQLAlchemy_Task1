@@ -3,7 +3,7 @@ from decimal import Decimal
 from pydantic import BaseModel, Field
 
 class CollectionCreate(BaseModel):
-    driver_id: int = Field(gt=0)
+    driver_name: str = Field(min_length=2, max_length=100)
     vehicle_number: str = Field(min_length=5, max_length=20)
     collection_date: date
     morning_trips: int = Field(ge=0)
@@ -15,7 +15,6 @@ class CollectionCreate(BaseModel):
 
 class CollectionResponse(BaseModel):
     id: int
-    driver_id: int
     driver_name: str
     vehicle_number: str
     collection_date: date
@@ -32,8 +31,8 @@ class CollectionResponse(BaseModel):
     report_file: str | None = None
 
 
-class CollectionPatch(BaseModel):
-    driver_id: int | None = Field(default=None, gt=0)
+class CollectionUpdate(BaseModel):
+    driver_name: str | None = Field(default=None, min_length=2, max_length=100)
     vehicle_number: str | None = Field(default=None, min_length=5, max_length=20)
     collection_date: date | None = None
     morning_trips: int | None = Field(default=None, ge=0)

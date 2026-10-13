@@ -2,14 +2,7 @@
 from datetime import date
 from decimal import Decimal
 
-from sqlalchemy import (
-    Date,
-    ForeignKey,
-    Integer,
-    Numeric,
-    String,
-    Text
-)
+from sqlalchemy import Date, Integer, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from database.base import Base
@@ -23,11 +16,8 @@ class TransportCollection(Base):
         primary_key=True,
     )
 
-    driver_id: Mapped[int] = mapped_column(
-        ForeignKey(
-            "drivers.driver_id",
-            ondelete="CASCADE",
-        ),
+    driver_name: Mapped[str] = mapped_column(
+        String(100),
         nullable=False,
     )
 
@@ -42,45 +32,56 @@ class TransportCollection(Base):
     )
 
     morning_trips: Mapped[int] = mapped_column(
-        Integer, nullable=False
+        Integer,
+        nullable=False,
     )
 
     evening_trips: Mapped[int] = mapped_column(
-        Integer, nullable=False
+        Integer,
+        nullable=False,
     )
 
     morning_collection: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     evening_collection: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     fuel_expense: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     other_expense: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     total_trips: Mapped[int] = mapped_column(
-        Integer, nullable=False
+        Integer,
+        nullable=False,
     )
 
     total_collection: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     total_expense: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     net_collection: Mapped[Decimal] = mapped_column(
-        Numeric(10, 2), nullable=False
+        Numeric(10, 2),
+        nullable=False,
     )
 
     report_file: Mapped[str | None] = mapped_column(
-        Text, nullable=True
+        Text,
+        nullable=True,
     )
