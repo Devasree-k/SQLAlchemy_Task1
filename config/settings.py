@@ -1,0 +1,36 @@
+
+from functools import lru_cache
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlalchemy import URL
+
+
+class Settings(BaseSettings):
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+    DB_NAME: str = "transport_db"
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str
+
+    UPLOAD_FOLDER: str = "uploads"
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+    @property
+    def database_url(self) -> URL:
+        return URL.create(
+            drivername="postgresql+psycopg",
+            username=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_HOST,
+            port=self.DB_PORT,
+            database=self.DB_NAME,
+        )
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
