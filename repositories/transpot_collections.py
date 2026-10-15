@@ -41,11 +41,7 @@ class CollectionRepository:
         statement = select( func.count() ).select_from(TransportCollection)
         return self.db.scalar(statement) or 0
 
-    def update(
-        self,
-        collection: TransportCollection,
-        changes: dict,
-    ) -> TransportCollection:
+    def update(self,collection: TransportCollection, changes: dict, ) -> TransportCollection:
         try:
             for field, value in changes.items():
                 setattr(collection, field, value)
@@ -57,11 +53,7 @@ class CollectionRepository:
             self.db.rollback()
             raise
 
-    def update_report(
-        self,
-        collection: TransportCollection,
-        filename: str,
-    ) -> TransportCollection:
+    def update_report(self, collection: TransportCollection, filename: str, ) -> TransportCollection:
         try:
             collection.report_file = filename
             self.db.commit()
