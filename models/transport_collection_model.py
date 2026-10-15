@@ -9,7 +9,7 @@ from database.base import Base
 
 
 class TransportCollection(Base):
-    __tablename__ = "transport_collections"
+    __tablename__ = "transport_collection"
 
     id: Mapped[int] = mapped_column(
         Integer,

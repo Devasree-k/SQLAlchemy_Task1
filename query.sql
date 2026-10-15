@@ -1,0 +1,84 @@
+
+CREATE TABLE transport_collection (
+    id SERIAL PRIMARY KEY,
+    driver_name VARCHAR(100) NOT NULL,
+    vehicle_number VARCHAR(20) NOT NULL,
+    collection_date DATE NOT NULL,
+    morning_trips INTEGER NOT NULL,
+    evening_trips INTEGER NOT NULL,
+    morning_collection NUMERIC(10, 2) NOT NULL,
+    evening_collection NUMERIC(10, 2) NOT NULL,
+    fuel_expense NUMERIC(10, 2) NOT NULL,
+    other_expense NUMERIC(10, 2) NOT NULL,
+    total_trips INTEGER NOT NULL,
+    total_collection NUMERIC(10, 2) NOT NULL,
+    total_expense NUMERIC(10, 2) NOT NULL,
+    net_collection NUMERIC(10, 2) NOT NULL,
+    report_file TEXT
+);
+
+INSERT INTO transport_collection (
+    driver_name,
+    vehicle_number,
+    collection_date,
+    morning_trips,
+    evening_trips,
+    morning_collection,
+    evening_collection,
+    fuel_expense,
+    other_expense,
+    total_trips,
+    total_collection,
+    total_expense,
+    net_collection,
+    report_file
+)
+VALUES
+(
+    'Ravi Kumar',
+    'TN38AB1234',
+    '2026-10-01',
+    12,
+    10,
+    6000.00,
+    5000.00,
+    1500.00,
+    500.00,
+    22,
+    11000.00,
+    2000.00,
+    9000.00,
+    NULL
+),
+(
+    'Suresh Kumar',
+    'TN37CD5678',
+    '2026-10-02',
+    15,
+    12,
+    7500.00,
+    6000.00,
+    1800.00,
+    700.00,
+    27,
+    13500.00,
+    2500.00,
+    11000.00,
+    NULL
+),
+(
+    'Arun Kumar',
+    'TN39EF9012',
+    '2026-10-03',
+    10,
+    8,
+    5000.00,
+    4000.00,
+    1200.00,
+    300.00,
+    18,
+    9000.00,
+    1500.00,
+    7500.00,
+    NULL
+);
