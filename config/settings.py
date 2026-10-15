@@ -7,16 +7,15 @@ from sqlalchemy import URL
 class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
-    DB_NAME: str = "transport_db"
-    DB_USER: str = "postgres"
+    DB_NAME: str 
+    DB_USER: str 
     DB_PASSWORD: str
-
-    UPLOAD_FOLDER: str = "uploads"
+    UPLOAD_FOLDER: str 
 
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        extra="ignore",
+        extra="ignore"
     )
 
     @property
@@ -27,7 +26,7 @@ class Settings(BaseSettings):
             password=self.DB_PASSWORD,
             host=self.DB_HOST,
             port=self.DB_PORT,
-            database=self.DB_NAME,
+            database=self.DB_NAME
         )
 
 

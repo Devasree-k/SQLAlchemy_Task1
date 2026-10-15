@@ -22,10 +22,7 @@ class CollectionRepository:
             raise
 
     def get_by_id( self, collection_id: int,) -> TransportCollection | None:
-        return self.db.get(
-            TransportCollection,
-            collection_id,
-        )
+        return self.db.get(TransportCollection, collection_id )
 
     def get_all( self, limit: int, offset: int,) -> list[TransportCollection]:
         statement = (
@@ -39,9 +36,9 @@ class CollectionRepository:
 
     def get_total_count(self) -> int:
         statement = select( func.count() ).select_from(TransportCollection)
-        return self.db.scalar(statement) or 0
+        return self.db.scalar(statement)
 
-    def update(self,collection: TransportCollection, changes: dict, ) -> TransportCollection:
+    def update(self,collection: TransportCollection, changes: dict) -> TransportCollection:
         try:
             for field, value in changes.items():
                 setattr(collection, field, value)
@@ -53,7 +50,7 @@ class CollectionRepository:
             self.db.rollback()
             raise
 
-    def update_report(self, collection: TransportCollection, filename: str, ) -> TransportCollection:
+    def update_report(self, collection: TransportCollection, filename: str ) -> TransportCollection:
         try:
             collection.report_file = filename
             self.db.commit()

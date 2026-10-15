@@ -13,11 +13,11 @@ engine = create_engine(
     pool_size=5,
     max_overflow=10,
     pool_timeout=30,
-    pool_recycle=1800,
+    pool_recycle=1800
 )
 
 SessionLocal = sessionmaker(
     bind=engine,
     autoflush=False,
-    expire_on_commit=False,
+    expire_on_commit=False
 )
