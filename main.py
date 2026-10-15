@@ -23,7 +23,11 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
+<<<<<<< HEAD
     title="Transport Collection System ",
+=======
+    title="Transport Collection Management API",
+>>>>>>> 11c30a2bde7d3bb21ca52142a8c66dc85b4d7cd4
     description=(
         "Manage daily transport collections, calculate totals, "
         "paginate records and upload reports."
@@ -47,7 +51,11 @@ async def app_exception_handler(
 app.include_router(collection_router)
 
 
+<<<<<<< HEAD
 @app.get("/", tags=["Default"])
+=======
+@app.get("/", tags=["Root"])
+>>>>>>> 11c30a2bde7d3bb21ca52142a8c66dc85b4d7cd4
 def home():
     return {
         "message": "Transport Collection API is running",

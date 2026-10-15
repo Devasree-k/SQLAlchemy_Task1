@@ -47,7 +47,15 @@ class CollectionResponse(BaseModel):
     report_file: str | None = None
 
 
+class CollectionResponse(CollectionCreate):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+
+
 class CollectionUpdate(BaseModel):
+    driver_name: str | None = None
+    vehicle_number: str | None = None
     driver_name: str | None = None
     vehicle_number: str | None = None
     collection_date: date | None = None
