@@ -1,20 +1,9 @@
 from datetime import date
 from decimal import Decimal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict
+
 
 class CollectionCreate(BaseModel):
-    driver_name: str = Field(min_length=2, max_length=100)
-    vehicle_number: str = Field(min_length=5, max_length=20)
-    collection_date: date
-    morning_trips: int = Field(ge=0)
-    evening_trips: int = Field(ge=0)
-    morning_collection: Decimal = Field(ge=0)
-    evening_collection: Decimal = Field(ge=0)
-    fuel_expense: Decimal = Field(ge=0)
-    other_expense: Decimal = Field(ge=0)
-
-class CollectionResponse(BaseModel):
-    id: int
     driver_name: str
     vehicle_number: str
     collection_date: date
@@ -31,13 +20,24 @@ class CollectionResponse(BaseModel):
     report_file: str | None = None
 
 
+class CollectionResponse(CollectionCreate):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+
+
 class CollectionUpdate(BaseModel):
-    driver_name: str | None = Field(default=None, min_length=2, max_length=100)
-    vehicle_number: str | None = Field(default=None, min_length=5, max_length=20)
+    driver_name: str | None = None
+    vehicle_number: str | None = None
     collection_date: date | None = None
-    morning_trips: int | None = Field(default=None, ge=0)
-    evening_trips: int | None = Field(default=None, ge=0)
-    morning_collection: Decimal | None = Field(default=None, ge=0)
-    evening_collection: Decimal | None = Field(default=None, ge=0)
-    fuel_expense: Decimal | None = Field(default=None, ge=0)
-    other_expense: Decimal | None = Field(default=None, ge=0)
+    morning_trips: int | None = None
+    evening_trips: int | None = None
+    morning_collection: Decimal | None = None
+    evening_collection: Decimal | None = None
+    fuel_expense: Decimal | None = None
+    other_expense: Decimal | None = None
+    total_trips: int | None = None
+    total_collection: Decimal | None = None
+    total_expense: Decimal | None = None
+    net_collection: Decimal | None = None
+    report_file: str | None = None
