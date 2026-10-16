@@ -106,9 +106,7 @@ class CollectionRepository:
             self.db.commit()
 
             if row is None:
-                raise RuntimeError(
-                    "Stored procedure did not return a collection ID"
-                )
+                raise RuntimeError("Stored procedure did not return a collection ID")
 
             collection_id = row[0]
             return self.db.get(TransportCollection, collection_id)
