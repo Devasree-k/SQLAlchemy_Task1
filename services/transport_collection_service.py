@@ -43,18 +43,21 @@ class CollectionService:
             net_collection=total_collection - total_expense,
         )
 
+    # def create(self, data: dict):
+    #     totals = self.calculate_totals(data)
+
+    #     values = {
+    #         **data,
+    #         "total_trips": totals.total_trips,
+    #         "total_collection": totals.total_collection,
+    #         "total_expense": totals.total_expense,
+    #         "net_collection": totals.net_collection,
+    #     }
+
+    #     return self.repository.create(values)
+
     def create(self, data: dict):
-        totals = self.calculate_totals(data)
-
-        values = {
-            **data,
-            "total_trips": totals.total_trips,
-            "total_collection": totals.total_collection,
-            "total_expense": totals.total_expense,
-            "net_collection": totals.net_collection,
-        }
-
-        return self.repository.create(values)
+        return self.repository.create_with_procedure(data)
 
     def get_by_id(self, collection_id: int):
         collection = self.repository.get_by_id(collection_id)

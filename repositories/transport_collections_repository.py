@@ -1,5 +1,5 @@
     
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
 from models.transport_collection_model import TransportCollection
@@ -64,6 +64,55 @@ class CollectionRepository:
         try:
             self.db.delete(collection)
             self.db.commit()
+        except Exception:
+            self.db.rollback()
+            raise
+
+
+    def create_with_procedure(self, data: dict):
+        params = {
+            "driver_name": data["driver_name"],
+            "vehicle_number": data["vehicle_number"],
+            "collection_date": data["collection_date"],
+            "morning_trips": data["morning_trips"],
+            "evening_trips": data["evening_trips"],
+            "morning_collection": data["morning_collection"],
+            "evening_collection": data["evening_collection"],
+            "fuel_expense": data["fuel_expense"],
+            "other_expense": data["other_expense"],
+            "collection_id": None,
+        }
+
+        try:
+            result = self.db.execute(
+                text("""
+                    CALL create_transport_collection(
+                        :driver_name,
+                        :vehicle_number,
+                        :collection_date,
+                        :morning_trips,
+                        :evening_trips,
+                        :morning_collection,
+                        :evening_collection,
+                        :fuel_expense,
+                        :other_expense,
+                        :collection_id
+                    )
+                """),
+                params,
+            )
+
+            row = result.fetchone()
+            self.db.commit()
+
+            if row is None:
+                raise RuntimeError(
+                    "Stored procedure did not return a collection ID"
+                )
+
+            collection_id = row[0]
+            return self.db.get(TransportCollection, collection_id)
+
         except Exception:
             self.db.rollback()
             raise
